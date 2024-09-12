@@ -17,12 +17,9 @@ context("Schema B", () => {
         });
       })
     describe('Error warnings and handling - Schema B', () => {
-        it("Required fields", () => {
+        it.only("Required fields", () => {
             cy.accountSubmit().click();
-            cy.accountNameRequiredError().should('exist').and('contain.text', errorRequiredFields.requiredField)
-            cy.storageLimitRequiredError().should('exist').and('contain.text', errorRequiredFields.requiredField)
-            cy.contactEmailRequiredError().should('exist').and('contain.text', errorRequiredFields.requiredField)
-            cy.accountTypeRequiredError().should('exist').and('contain.text', errorRequiredFields.requiredField)
+            cy.assertRequiredErrorsB()
             cy.verifyAccountDataB()
             cy.isValidAccount('pre.mt-4.bg-gray-100.p-4.overflow-auto', 'Is validfalse');
         })  

@@ -62,5 +62,5 @@ export const featuresDataOptions = {
 export const comboboxOptions = {
   environment: ['development', 'staging', 'production'],
   gender: ['male', 'female', 'other'],
-  subscription: ['basic', 'premium', 'enterprise']
+  account: ['basic', 'premium', 'enterprise']
 };

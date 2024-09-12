@@ -11,6 +11,7 @@ import { comboboxOptions } from './constants';
 import "../support/getCommands";
 import "../support/commands";
 
+//SchemaA
 Cypress.Commands.add("fillFormWithRandomData", () => {
   const formData = {
     name: getRandomOption(formDataOptions.name),
@@ -121,6 +122,63 @@ Cypress.Commands.add("typeMaximumUserName", () => {
   cy.userName().type("123456789012345678901234");
 });
 
+Cypress.Commands.add("getRequiredErrorsA", () => {
+  return [
+    cy.userNameRequiredError(),
+    cy.ageRequiredError(),
+    cy.emailRequiredError(),
+    cy.streetRequiredError(),
+    cy.cityRequiredError(),
+    cy.zipRequiredError(),
+    cy.genderRequiredError(),
+  ];
+});
+
+Cypress.Commands.add("assertRequiredErrorsA", () => {
+  const errors = [
+    cy.userNameRequiredError(),
+    cy.ageRequiredError(),
+    cy.emailRequiredError(),
+    cy.streetRequiredError(),
+    cy.cityRequiredError(),
+    cy.zipRequiredError(),
+    cy.genderRequiredError(),
+  ];
+
+  errors.forEach((error) => {
+    error
+      .should("exist")
+      .and("contain.text", errorRequiredFields.requiredField);
+  });
+});
+
+Cypress.Commands.add("assertMinErrorsA", () => {
+  const errors = [
+    cy.minErrorUserName(),
+    
+  ];
+
+  errors.forEach((error) => {
+    error
+      .should("exist")
+      .and("contain.text", minMaxErrors.minUserName);
+  });
+});
+
+Cypress.Commands.add("assertMaxErrorsA", () => {
+  const errors = [
+    cy.maxErrorUserName(),
+    
+  ];
+
+  errors.forEach((error) => {
+    error
+      .should("exist")
+      .and("contain.text", minMaxErrors.maxUserName);
+  });
+});
+
+//SchemaB
 Cypress.Commands.add("fillFormWithRandomDataB", () => {
   const accountData = {
     accountName: getRandomOption(accountDataOptions.accountName),
@@ -233,6 +291,43 @@ Cypress.Commands.add("typeMinimumAccountName", () => {
   cy.accountName().type("1");
 });
 
+Cypress.Commands.add("getRequiredErrorsB", () => {
+  return [
+cy.accountNameRequiredError(),
+cy.storageLimitRequiredError(),
+cy.contactEmailRequiredError(),
+cy.accountTypeRequiredError(),
+];
+});
+
+Cypress.Commands.add("assertRequiredErrorsB", () => {
+  const errors = [
+    cy.accountNameRequiredError(),
+    cy.storageLimitRequiredError(),
+    cy.contactEmailRequiredError(),
+    cy.accountTypeRequiredError(),
+  ];
+
+  errors.forEach((error) => {
+    error
+      .should("exist")
+      .and("contain.text", errorRequiredFields.requiredField);
+  });
+});
+
+Cypress.Commands.add("assertMinMaxErrorsB", () => {
+  const errors = [
+    cy.accountNameRequiredError(),
+  ];
+
+  errors.forEach((error) => {
+    error
+      .should("exist")
+      .and("contain.text", minMaxErrors.minAccountName);
+  });
+});
+
+//SchemaC
 Cypress.Commands.add("fillFormWithRandomDataC", () => {
   const appData = {
     appName: getRandomOption(appDataOptions.appName),
@@ -428,32 +523,7 @@ Cypress.Commands.add("assertRequiredErrorsC", () => {
   });
 });
 
-
-Cypress.Commands.add("getRequiredErrorsB", () => {
-  return [
-cy.accountNameRequiredError(),
-cy.storageLimitRequiredError(),
-cy.contactEmailRequiredError(),
-cy.accountTypeRequiredError(),
-];
-});
-
-Cypress.Commands.add("assertRequiredErrorsB", () => {
-  const errors = [
-    cy.accountNameRequiredError(),
-    cy.storageLimitRequiredError(),
-    cy.contactEmailRequiredError(),
-    cy.accountTypeRequiredError(),
-  ];
-
-  errors.forEach((error) => {
-    error
-      .should("exist")
-      .and("contain.text", errorRequiredFields.requiredField);
-  });
-});
-
-Cypress.Commands.add("assertMinMaxErrors", () => {
+Cypress.Commands.add("assertMinMaxErrorsC", () => {
   const errors = [
     cy.minErrorAppName(),
   ];
@@ -466,6 +536,7 @@ Cypress.Commands.add("assertMinMaxErrors", () => {
 });
   
 
+//All
 Cypress.Commands.add("clickComboBox", () => {
   return cy.getRoleComboBox().click();
 });

@@ -15,30 +15,27 @@ context("Schema A", () => {
           cy.verifyFormData();
           cy.verifyValid('pre.mt-4.bg-gray-100.p-4.overflow-auto', 'Is validtrue');
         });
+        it("Verify fields integrity", () => {
+            cy.assertCombobox('gender');
+          });
       });
     
     describe('Error warnings and handling - Schema A', () => {
         it("Required fields", () => {
             cy.userSubmit().click();
-            cy.userNameRequiredError().should('exist').and('contain.text', errorRequiredFields.requiredField)
-            cy.ageRequiredError().should("exist").and('contain.text', errorRequiredFields.requiredField)
-            cy.emailRequiredError().should("exist").and('contain.text', errorRequiredFields.requiredField)
-            cy.streetRequiredError().should("exist").and('contain.text', errorRequiredFields.requiredField)
-            cy.cityRequiredError().should("exist").and('contain.text', errorRequiredFields.requiredField)
-            cy.zipRequiredError().should("exist").and('contain.text', errorRequiredFields.requiredField)
-            cy.genderRequiredError().should("exist").and('contain.text', errorRequiredFields.requiredField)
+            cy.assertRequiredErrorsA()
             cy.verifyFormData();
             cy.verifyErrorMessages('.highlight', errorMessages);
             cy.verifyValid('pre.mt-4.bg-gray-100.p-4.overflow-auto', 'Is validfalse');
         })
         
-        it("Min and Max Lenght - Schema A", () => {
+        it.only("Min and Max Lenght - Schema A", () => {
             cy.typeMinimumUserName()
             cy.userSubmit().click();
-            cy.minErrorUserName().should("exist").and('contain.text', minMaxErrors.minUserName)
+            cy.assertMinErrorsA()
             cy.typeMaximumUserName()
             cy.userSubmit().click();
-            cy.maxErrorUserName().should("exist").and('contain.text', minMaxErrors.maxUserName)
+            cy.assertMaxErrorsA()
         })
     })
 })

@@ -7,7 +7,7 @@ context("Schema C", () => {
     cy.visitHost();
     cy.clickSchemaC();
   });
-  describe("Form Happy Path", () => {
+  describe("Form Happy Path - Schema C ", () => {
     it("Should fill the form with valid data - Schema C", () => {
       cy.fillFormWithRandomDataC();
       cy.verifyAppDataC();
@@ -21,7 +21,7 @@ context("Schema C", () => {
     });
   });
   describe("Error warnings and handling - Schema C", () => {
-    it.only("Required fields", () => {
+    it("Required fields", () => {
       cy.clickAllFeatures();
       cy.submitApp().click();
       cy.assertRequiredErrorsC();
@@ -29,10 +29,10 @@ context("Schema C", () => {
       cy.isValidApp("pre.mt-4.bg-gray-100.p-4.overflow-auto", "Is validfalse");
     });
 
-    it("Min and Max lenght - Schema C", () => {
+    it("Min and Max lenght", () => {
       cy.typeMinimumAppName();
       cy.submitApp().click();
-      cy.assertMinMaxErrors()
+      cy.assertMinMaxErrorsC()
     });
   });
 });
